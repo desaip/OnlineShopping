@@ -1,10 +1,13 @@
-package model;
+	package model;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+
+import pojo.ProductVO;
 import pojo.UserVO;
 import dao.DbConnection;
 import dao.LoginHandler;
+import dao.ProductsHandler;
 
 public class SecurityManager {
 
@@ -20,5 +23,19 @@ public class SecurityManager {
 				throw e;
 				}
 			return userList;
+	}
+	
+	public ArrayList<ProductVO> getAllProductsList()throws Exception {
+		ArrayList<ProductVO> productsList = null;
+		try {
+			DbConnection database= new DbConnection();
+			Connection connection = database.getConnection();
+			ProductsHandler productsHandler= new ProductsHandler();
+			productsList = productsHandler.getAllProducts(connection);
+		
+			} catch (Exception e) {
+				throw e;
+				}
+			return productsList;
 	}
 }
