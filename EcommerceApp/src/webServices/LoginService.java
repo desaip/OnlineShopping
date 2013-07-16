@@ -36,7 +36,7 @@ public class LoginService {
  public void login(@FormParam("username") String username,
  @FormParam("password") String password) throws IOException 
 {
- String res=getAllUsersList(username, password);
+ String res=validateUser(username, password);
 
  if(res.contains("Logged in")){
 	 servletResponse.sendRedirect("/EcommerceApp/Welcome.html");
@@ -47,14 +47,14 @@ public class LoginService {
 
 }
  
-public String getAllUsersList(String username,String password)
+public String validateUser(String username,String password)
  {
 	 String userListData = null;
 	 try
 	 {
 		 ArrayList<User> userList = null;
 		 SecurityManager securityManager= new SecurityManager();
-		 userList = securityManager.getAllUsersList();
+		 userList = securityManager.getUser(username);
 		 
 		 for (User userVO : userList) {
 	

@@ -9,7 +9,7 @@ public class Product {
 	private String productName;
     private String productDesc;
     private String productCategory;
-    private int quantity;
+    private float weight_lb;
 	private float price;
     
     public int getProductId() {
@@ -44,20 +44,20 @@ public class Product {
 		this.productCategory = productCategory;
 	}
 
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
 	public float getPrice() {
 			return price;
 	}
 
 	public void setPrice(float price) {
 		this.price = price;
+	}
+
+	public float getWeight_lb() {
+		return weight_lb;
+	}
+
+	public void setWeight_lb(float weight_lb) {
+		this.weight_lb = weight_lb;
 	}
    
 }

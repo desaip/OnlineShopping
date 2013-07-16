@@ -44,18 +44,4 @@ public class ProductsService {
 		return products;
 	}
 	
-	/*@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public JResponse<List<ProductVO>> getProducts() {
-		List<ProductVO> products = new ArrayList<ProductVO>();
-		 SecurityManager securityManager= new SecurityManager();
-		 try {
-			products = securityManager.getAllProductsList();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		 //return products;
-		return JResponse.ok(products).build();
-	}*/
 }

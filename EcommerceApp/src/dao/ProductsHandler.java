@@ -22,7 +22,7 @@ public class ProductsHandler {
 				 p.setProductDesc(rs.getString("productDesc"));
 				 p.setProductId(rs.getInt("productId"));
 				 p.setProductName(rs.getString("productName"));
-				 p.setQuantity(rs.getInt("quantity"));
+				 p.setWeight_lb(rs.getFloat("weight_lb"));
 				 p.setPrice(rs.getFloat("price"));
 				 productsList.add(p);
 			 }
