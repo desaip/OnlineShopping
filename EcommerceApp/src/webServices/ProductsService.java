@@ -11,15 +11,15 @@ import javax.ws.rs.core.MediaType;
 import com.sun.jersey.api.JResponse;
 
 import model.SecurityManager;
-import pojo.ProductVO;
+import pojo.Product;
 
 @Path("/products")
 public class ProductsService {
 
 	@GET
 	@Produces(MediaType.TEXT_XML)
-	public List<ProductVO> getProductsOnBrowser() {
-		List<ProductVO> products = new ArrayList<ProductVO>();
+	public List<Product> getProductsOnBrowser() {
+		List<Product> products = new ArrayList<Product>();
 		 SecurityManager securityManager= new SecurityManager();
 		 try {
 			products = securityManager.getAllProductsList();
@@ -27,14 +27,13 @@ public class ProductsService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 //return products;
 		return products;
 	}
 	
 	@GET
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public List<ProductVO> getProducts() {
-		List<ProductVO> products = new ArrayList<ProductVO>();
+	public List<Product> getProducts() {
+		List<Product> products = new ArrayList<Product>();
 		 SecurityManager securityManager= new SecurityManager();
 		 try {
 			products = securityManager.getAllProductsList();
@@ -42,7 +41,6 @@ public class ProductsService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 //return products;
 		return products;
 	}
 	

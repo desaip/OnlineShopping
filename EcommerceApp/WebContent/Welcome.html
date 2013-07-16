@@ -5,49 +5,50 @@
 <title>Products</title>
 <script src="http://code.jquery.com/jquery-2.0.3.js"> </script>
 <script>	  
-
 $(document).ready(function () {
 	    $.ajax({
 	        type: "GET",
 	        url: "/EcommerceApp/REST/products",
 	        dataType: "xml",
 	        success: function(xml) {
-	            $(xml).find('productVO').each(function(i){
+	            $(xml).find('product').each(function(i){
 	                var pName = $(this).find('productName').text();
-	                $("#pn").text(pName);
 	                var pId = $(this).find('productId').text();
 	                var pDesc = $(this).find('productDesc').text();
-	                $("#pd").text(pDesc);
 	                var pCat = $(this).find('productCategory').text();
-	                $("#pc").text(pCat);
-	                var q = $(this).find('quantity').text();
-	                var price = "$"+$(this).find('price').text();
-	                $("#p").text(price);
-	                $("#img1").attr('src', 'http://localhost:8080/EcommerceApp/images/'+pId+'.jpg');
-	                $("#img1").width(100);
-	                $("#img1").height(100);
-	            }); 
+	                var price = $(this).find('price').text();
+	               	                
+	                $('#products').append('<tr> <td> <tr> <td colspan="2" align="center"> <img width="100" height="100" src="images/'+pId+'.jpg"></td></tr>'+
+	              									 '<tr> <th>Name :</th> <td>'+pName+'</td> </tr>'+
+	              									 '<tr> <th>Category :</th> <td>'+pCat+'</td> </tr>'+
+	              			                		 '<tr> <th>Description :</th><td>'+pDesc+'</td></tr>'+
+	              			                		 '<tr> <th>Price :</th><td> $'+price+'</td></tr>'+
+	              			                		 '<tr> <td colspan="2" align="center"> <input type="submit" value="Add to Cart" onclick="addCart('+ pId + ',\'' + pName + '\',\''+ pCat +'\','+ price +')"> </td> </tr>'+
+	              									 '</td> </tr> <br>');      
+	           });
 	        }   
 	    }); 
 	});
+
+function addCart(pId,pName,pCat,price){
+	var cart = window.sessionStorage; 	
+	cart.setItem('pId',pId);
+	cart.setItem('pName',pName);
+	cart.setItem('pCat',pCat);
+	cart.setItem('price',price); 
+	window.location.replace("Cart.html");
+}
+
 
 </script>
 
 </head>
 <body>
-<div id="div1"></div>
+<div id="div1" align="right"><a href="LoginForm.html">Logout</a></div>
 
 <table id="products">
-<tr>
-<td>
-<tr> <td colspan="2" align="center"> <img id="img1"> </td></tr>
-<tr> <th>Name :</th> <td id="pn"> </td> </tr>
-<tr> <th>Category :</th> <td id="pc"> </td> </tr>
-<tr><th>Description :</th><td id="pd"></td></tr>
-<tr><th>Price :</th><td id="p"></td></tr>
-<tr> <td colspan="2" align="center"> <input type="button" value="Add to Cart"> </tr>
-</td>
-<tr>
+
 </table>
+
 </body>
 </html>

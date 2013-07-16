@@ -5,28 +5,26 @@
 	import java.sql.ResultSet;
 	import java.util.ArrayList;
 	 
-	import pojo.UserVO;
+	import pojo.User;
 	 
 	public class LoginHandler
 	{
 	 
-		public ArrayList<UserVO> getAllUsers(Connection connection) throws Exception 
+		public ArrayList<User> getAllUsers(Connection connection) throws Exception 
 		{
-			ArrayList<UserVO> userList = new ArrayList<UserVO>();
+			ArrayList<User> userList = new ArrayList<User>();
 			try 
 			{
-				// String uname = request.getParameter("uname");
 				 PreparedStatement ps = connection.prepareStatement("SELECT * FROM user");
-				 // ps.setString(1,uname);
 				 ResultSet rs = ps.executeQuery();
 				 while (rs.next()) 
 				 {
-					 UserVO uservo = new UserVO();
+					 User uservo = new User();
 					 uservo.setUsername(rs.getString("username"));
 					 uservo.setPassword(rs.getString("password"));
 					 userList.add(uservo);
 				 }
-				 System.out.println(userList);
+				 //System.out.println(userList);
 				 return userList;
 			}
 			

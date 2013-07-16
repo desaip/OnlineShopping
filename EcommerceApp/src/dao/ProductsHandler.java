@@ -5,19 +5,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import pojo.ProductVO;
+import pojo.Product;
 
 public class ProductsHandler {
-	public ArrayList<ProductVO> getAllProducts(Connection connection) throws Exception 
+	public ArrayList<Product> getAllProducts(Connection connection) throws Exception 
 	{
-		ArrayList<ProductVO> productsList = new ArrayList<ProductVO>();
+		ArrayList<Product> productsList = new ArrayList<Product>();
 		try 
 		{
 			 PreparedStatement ps = connection.prepareStatement("SELECT * FROM products");
 			 ResultSet rs = ps.executeQuery();
 			 while (rs.next()) 
 			 {
-				 ProductVO p = new ProductVO();
+				 Product p = new Product();
 				 p.setProductCategory(rs.getString("productCategory"));
 				 p.setProductDesc(rs.getString("productDesc"));
 				 p.setProductId(rs.getInt("productId"));
@@ -26,7 +26,7 @@ public class ProductsHandler {
 				 p.setPrice(rs.getFloat("price"));
 				 productsList.add(p);
 			 }
-			 System.out.println(productsList);
+			 //System.out.println(productsList);
 			 return productsList;
 		}
 		

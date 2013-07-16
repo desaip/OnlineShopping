@@ -21,40 +21,30 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.UriInfo;
 
 import model.SecurityManager;
-import pojo.UserVO;
+import pojo.User;
 
 //@Path("/WebService")
 @Path("/login")
 
-//@FormParamaccess username from html form. 
-
-
 public class LoginService {
 
-	/*@Context
-	UriInfo uriInfo;
-	@Context
-	Request request;*/
-
- @POST
- //@Produces(MediaType.TEXT_HTML)
+@Context HttpServletResponse servletResponse;
+	
+@POST
  @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 
- public String login(@FormParam("username") String username,
- @FormParam("password") String password) // throws IOException  //@Context HttpServletResponse servletResponse
+ public void login(@FormParam("username") String username,
+ @FormParam("password") String password) throws IOException 
 {
  String res=getAllUsersList(username, password);
 
- System.out.println(res);
- return res;
-/*URI uri = uriInfo.getAbsolutePathBuilder().path(res).build();
-//Response.temporaryRedirect(uri).build();
- return Response.created(uri).build();*/
+ if(res.contains("Logged in")){
+	 servletResponse.sendRedirect("/EcommerceApp/Welcome.html");
+ }
+ else{
+	 servletResponse.sendRedirect("/EcommerceApp/LoginForm.html");
+ }
 
-//ResponseBuilder response = Response.ok().header("loginResult", res);
-//return Response.build(); 
-
-// servletResponse.sendRedirect("/Welcome.html");
 }
  
 public String getAllUsersList(String username,String password)
@@ -62,19 +52,19 @@ public String getAllUsersList(String username,String password)
 	 String userListData = null;
 	 try
 	 {
-		 ArrayList<UserVO> userList = null;
+		 ArrayList<User> userList = null;
 		 SecurityManager securityManager= new SecurityManager();
 		 userList = securityManager.getAllUsersList();
 		 
-		 for (UserVO userVO : userList) {
+		 for (User userVO : userList) {
 	
 			 if(userVO.getUsername().equals(username))
 			 {
 			 if(userVO.getPassword().equals(password))
 			 	{
-				 System.out.println(username);
+				 //System.out.println(username);
 				 return "Logged in User:"+username+"\n Products coming shortly";
-			
+				 
 			 	}
 			 }
 		 }

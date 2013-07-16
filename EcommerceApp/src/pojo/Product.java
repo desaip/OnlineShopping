@@ -3,7 +3,7 @@ package pojo;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class ProductVO {
+public class Product {
 	
 	private int productId;
 	private String productName;

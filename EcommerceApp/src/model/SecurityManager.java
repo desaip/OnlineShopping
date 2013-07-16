@@ -3,16 +3,16 @@
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import pojo.ProductVO;
-import pojo.UserVO;
+import pojo.Product;
+import pojo.User;
 import dao.DbConnection;
 import dao.LoginHandler;
 import dao.ProductsHandler;
 
 public class SecurityManager {
 
-	public ArrayList<UserVO> getAllUsersList()throws Exception {
-		ArrayList<UserVO> userList = null;
+	public ArrayList<User> getAllUsersList()throws Exception {
+		ArrayList<User> userList = null;
 		try {
 			DbConnection database= new DbConnection();
 			Connection connection = database.getConnection();
@@ -25,8 +25,8 @@ public class SecurityManager {
 			return userList;
 	}
 	
-	public ArrayList<ProductVO> getAllProductsList()throws Exception {
-		ArrayList<ProductVO> productsList = null;
+	public ArrayList<Product> getAllProductsList()throws Exception {
+		ArrayList<Product> productsList = null;
 		try {
 			DbConnection database= new DbConnection();
 			Connection connection = database.getConnection();
