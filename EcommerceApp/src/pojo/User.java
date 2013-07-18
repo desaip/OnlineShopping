@@ -1,25 +1,25 @@
 package pojo;
 
 public class User {
-		private String fname;
+	 	private String email;	
+	 	private String fname;
 		private String lname;
-    	private String username;
 	    private String password;
-	    private String email;
 	    private String address1;
 	    private String address2;
 	    private String city;
 	    private String state;
 	    private String zip;
-	    private String num;
+	    private String contact_num;
+	    private String country;
 	    
-	    public String getUsername() {
-	    	return username;
-	    }
-	    
-	    public void setUsername(String username) {
-	    	this.username = username;
-	    }
+	    public String getEmail() {
+			return email;
+		}
+
+		public void setEmail(String email) {
+			this.email = email;
+		}
 	 
 	    public String getPassword() {
 	    	return password;
@@ -43,14 +43,6 @@ public class User {
 
 		public void setLname(String lname) {
 			this.lname = lname;
-		}
-
-		public String getEmail() {
-			return email;
-		}
-
-		public void setEmail(String email) {
-			this.email = email;
 		}
 
 		public String getAddress1() {
@@ -93,11 +85,19 @@ public class User {
 			this.zip = zip;
 		}
 
-		public String getNum() {
-			return num;
+		public String getContact_num() {
+			return contact_num;
 		}
 
-		public void setNum(String num) {
-			this.num = num;
+		public void setContact_num(String contact_num) {
+			this.contact_num = contact_num;
+		}
+
+		public String getCountry() {
+			return country;
+		}
+
+		public void setCountry(String country) {
+			this.country = country;
 		}
 }

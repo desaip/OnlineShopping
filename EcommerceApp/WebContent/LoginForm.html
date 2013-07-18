@@ -3,14 +3,28 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Login</title>
+<script src="http://code.jquery.com/jquery-2.0.3.js"> </script>
+<script>
+$(document).ready(function () {
+	var field = 'result';
+	var url = window.location.href;
+	if(url.indexOf('?' + field + '=') != -1)
+		$("#msg").append('<p>Invalid email and/or password. Please Login Again </p>');
+});
+</script>
 </head>
 <body>
 <br>
-<form action="REST/login" method="post" align="center" >
- Username:<input name="username" type="text"><br/>
- Password:<input name="password" type="password"><br/><br/><br/>
- <input type="submit" value="Submit">
+<div id="msg" style="color:red;" align="center"></div>
+<div align="center">
+<form action="REST/login" method="post">
+<table>
+<tr><td>Email Address: </td><td><input name="email" type="text" width="20"></td></tr> 
+<tr><td> Password: </td><td><input name="password" type="password" width="20"></td></tr>
+<tr><td colspan="2"><input type="submit" value="Submit"></td>
+</table>
  </form>
+ </div>
  <br/>
  <div align="center">
  <a href="Register.html">New Users Register here</a>

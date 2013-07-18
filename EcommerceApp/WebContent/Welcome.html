@@ -5,6 +5,7 @@
 <title>Products</title>
 <script src="http://code.jquery.com/jquery-2.0.3.js"> </script>
 <script>	  
+var cart = window.sessionStorage;
 $(document).ready(function () {
 	    $.ajax({
 	        type: "GET",
@@ -19,21 +20,21 @@ $(document).ready(function () {
 	                var price = $(this).find('price').text();
 	                var weight = $(this).find('weight_lb').text();
 	                
-	                $('#products').append('<tr> <td> <tr> <td colspan="2" align="center"> <img width="100" height="100" src="images/'+pId+'.jpg"></td></tr>'+
+	                $('#products').append('<tr><td> <tr> <td colspan="2" align="center"> <img width="100" height="100" src="images/'+pId+'.jpg"></td></tr>'+
 	              									 '<tr> <th>Name :</th> <td>'+pName+'</td> </tr>'+
 	              									 '<tr> <th>Category :</th> <td>'+pCat+'</td> </tr>'+
 	              			                		 '<tr> <th>Description :</th><td>'+pDesc+'</td></tr>'+
 	              			                		 '<tr> <th>Price :</th><td> $'+price+'</td></tr>'+
 	              			                		 '<tr> <th>Weight :</th><td>'+weight+' lb</td></tr>'+
 	              			                		 '<tr> <td colspan="2" align="center"> <input type="submit" value="Add to Cart" onclick="addCart('+ pId + ',\'' + pName + '\',\''+ pCat +'\','+ price +','+ weight +')"> </td> </tr>'+
-	              									 '</td> </tr> <br>');      
+	              									 '</td></tr>');      
 	           });
 	        }   
 	    }); 
 	});
 
 function addCart(pId,pName,pCat,price,weight){
-	var cart = window.sessionStorage; 	
+	 	
 	cart.setItem('pId',pId);
 	cart.setItem('pName',pName);
 	cart.setItem('pCat',pCat);
@@ -45,8 +46,12 @@ function addCart(pId,pName,pCat,price,weight){
 </head>
 
 <body>
-<div id="div1" align="right"><a href="LoginForm.html">Logout</a></div>
-
+<div id="div" align="center"><a href="Welcome.html">Products Catalog</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="MyProfile.html">My Profile</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="LoginForm.html">Logout</a><br>
+<h3> Products Catalog  </h3>
+</div>
 <table id="products">
 
 </table>

@@ -23,69 +23,40 @@ public class RegisterService {
 @POST
 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 
- public void register(@FormParam("fname") String fname,@FormParam("lname") String lname,@FormParam("username") String username,
+ public void register(@FormParam("fname") String fname,@FormParam("lname") String lname,
 		 			@FormParam("password") String password, @FormParam("emailid") String email,
 		 			@FormParam("add1") String add1,@FormParam("add2") String add2,
 		 			@FormParam("city") String city,@FormParam("statedd") String state,
-		 			@FormParam("zip") String zip,@FormParam("con_num") String num) throws IOException 
+		 			@FormParam("zip") String zip,@FormParam("country") String country,
+		 			@FormParam("con_num") String num) throws IOException 
 {
 
 	 try {
 			User u = new User();
-			u.setUsername(username);
+			u.setEmail(email);
 			u.setPassword(password);
 			u.setFname(fname);
 			u.setLname(lname);
-			u.setEmail(email);
 			u.setAddress1(add1);
 			u.setAddress2(add2);
 			u.setCity(city);
-			u.setZip(zip);
 			u.setState(state);
-			u.setNum(num);
+			u.setZip(zip);
+			u.setCountry(country);
+			u.setContact_num(num);
 			SecurityManager securityManager= new SecurityManager();
 			
-			securityManager.storeUser(u);
-			
+			if(securityManager.storeUser(u)==false){
+				servletResponse.sendRedirect("/EcommerceApp/Register.html?result=false");
+			}
+			else{
 			servletResponse.sendRedirect("/EcommerceApp/LoginForm.html");
-			
+			}
 			
 	} catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-
-
 }
  
-public String getAllUsersList(String username,String password)
- {
-	 String userListData = null;
-	 try
-	 {
-		 ArrayList<User> userList = null;
-		 SecurityManager securityManager= new SecurityManager();
-		 userList = securityManager.getAllUsersList();
-		 
-		 for (User userVO : userList) {
-	
-			 if(userVO.getUsername().equals(username))
-			 {
-			 if(userVO.getPassword().equals(password))
-			 	{
-				 //System.out.println(username);
-				 return "Logged in User:"+username+"\n Products coming shortly";
-				 
-			 	}
-			 }
-		 }
- 
-	 }
-	 catch (Exception e) {
-		  System.out.println("error");
-	 }
-	 
-	 return "You are not a Valid User";
- }
-
 }

@@ -10,43 +10,38 @@ import dao.LoginHandler;
 import dao.ProductsHandler;
 
 public class SecurityManager {
+	
+	DbConnection database;
+	Connection connection;
+	
+	public SecurityManager(){
+		try {
+			database= new DbConnection();
+			connection = database.getConnection();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
-	public ArrayList<User> getAllUsersList()throws Exception {
-		ArrayList<User> userList = null;
+	public User getUser(String email)throws Exception {
+		User user = new User();
 		try {
-			DbConnection database= new DbConnection();
-			Connection connection = database.getConnection();
 			LoginHandler loginHandler= new LoginHandler();
-			userList= loginHandler.getAllUsers(connection);
+			user = loginHandler.getUser(connection, email);
 		
 			} catch (Exception e) {
 				throw e;
 				}
-			return userList;
+			return user;
 	}
 	
-	public ArrayList<User> getUser(String username)throws Exception {
-		ArrayList<User> userList = null;
-		try {
-			DbConnection database= new DbConnection();
-			Connection connection = database.getConnection();
-			LoginHandler loginHandler= new LoginHandler();
-			userList= loginHandler.getUser(connection, username);
-		
-			} catch (Exception e) {
-				throw e;
-				}
-			return userList;
-	}
-	
-	public void storeUser(User u)throws Exception {
+	public Boolean storeUser(User u)throws Exception {
 		
 		try {
-			DbConnection database= new DbConnection();
-			Connection connection = database.getConnection();
 			LoginHandler loginHandler= new LoginHandler();
-			loginHandler.storeUser(connection, u);
-		
+			Boolean result = loginHandler.storeUser(connection, u);
+			return result;
 			} catch (Exception e) {
 				throw e;
 				}
@@ -55,8 +50,6 @@ public class SecurityManager {
 	public ArrayList<Product> getAllProductsList()throws Exception {
 		ArrayList<Product> productsList = null;
 		try {
-			DbConnection database= new DbConnection();
-			Connection connection = database.getConnection();
 			ProductsHandler productsHandler= new ProductsHandler();
 			productsList = productsHandler.getAllProducts(connection);
 		
