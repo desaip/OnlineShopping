@@ -11,8 +11,7 @@ $(document).ready(function () {
 	        type: "GET",
 	        url: "/EcommerceApp/REST/products",
 	        dataType: "xml",
-	        success: function(xml) {
-	              
+	        success: function(xml) {              
                 
 	            $(xml).find('product').each(function(i){
 	                var pName = $(this).find('productName').text();
@@ -22,8 +21,7 @@ $(document).ready(function () {
 	                var price = $(this).find('price').text();
 	                var weight = $(this).find('weight_lb').text();
 	                var flprice = parseFloat(price);
-	                var tax=parseFloat(flprice*0.09);              	
-	            
+	                var tax=parseFloat(flprice*0.09);              		            
 	               	                		               	                
 	                $("#products").append('<tr><td><tr> <td colspan="2" align="center"> <img width="100" height="100" src="images/'+pId+'.jpg"></td></tr>'+
 						 '<tr> <th>Name :</th> <td>'+pName+'</td> </tr>'+
@@ -43,9 +41,7 @@ $(document).ready(function () {
  		            	'>'+'<'+'/script>'+
                 		 '</td></tr>'           
 	           );
-
-	            });
-	       	
+	            });	       	
 	        }   
 	    }); 
 	});

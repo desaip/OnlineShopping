@@ -37,9 +37,9 @@ public class ProductsHandler {
 		}
 	}
 
-	public Boolean addProduct(Connection c, Product p) throws Exception
+	public int addProduct(Connection c, Product p) throws Exception
 		{
-			Boolean result = false;
+			int pid=0;
 			try 
 			{
 				String name = p.getProductName();
@@ -55,13 +55,13 @@ public class ProductsHandler {
 		        while (RS.next()) {
 		            results= results+RS.getInt("total");
 		            } 
-		        
+		         pid=(results+1);
 		                
-		            	String q = "INSERT INTO products VALUES('"+(results+1)+"','"+name+"','"+cat+"','"+desc+"',"+weight+","+price+")";
+		            	String q = "INSERT INTO products VALUES('"+pid+"','"+name+"','"+cat+"','"+desc+"',"+weight+","+price+")";
 						//System.out.println(q);
 						 PreparedStatement ps = c.prepareStatement(q);
 						 ps.executeUpdate();
-						 result = true;
+						 
 		            
 			}
 			catch (Exception e)
@@ -69,7 +69,7 @@ public class ProductsHandler {
 				System.out.println("Handler" + e);
 				throw e;
 			}
-			return result;
+			return pid;
 		}
  
 }

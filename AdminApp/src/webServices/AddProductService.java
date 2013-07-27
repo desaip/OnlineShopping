@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
@@ -13,14 +12,10 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
 
-import com.sun.jersey.core.header.FormDataContentDisposition;
-import com.sun.jersey.multipart.FormDataBodyPart;
 import com.sun.jersey.multipart.FormDataParam;
-import com.sun.jersey.multipart.FormDataMultiPart;
 
-import javax.ws.rs.FormParam;
+import org.apache.commons.io.FileUtils;
 
 import model.SecurityManager;
 import pojo.Product;
@@ -32,49 +27,48 @@ public class AddProductService {
 	
 	@POST
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	 public void addProduct(FormDataMultiPart multiPart) throws IOException 
+	
+	 public void addProduct(@FormDataParam("pic") InputStream uploadedInputStream, @FormDataParam("name") String name, @FormDataParam("cat") String cat,
+			                @FormDataParam("desc") String desc,@FormDataParam("weight") String weight,@FormDataParam("price") String price) throws IOException 
 	{
 		try {
-		List<FormDataBodyPart> Namefield = multiPart.getFields("name");     
-		String name = ((FormDataBodyPart) Namefield).getValue();
-		List<FormDataBodyPart> Catfield = multiPart.getFields("cat");     
-		String cat = ((FormDataBodyPart) Catfield).getValue();
-		List<FormDataBodyPart> Descfield = multiPart.getFields("desc");     
-		String desc = ((FormDataBodyPart) Descfield).getValue();
-		List<FormDataBodyPart> Weightfield = multiPart.getFields("weight");     
-		String weight = ((FormDataBodyPart) Weightfield).getValue();
-		List<FormDataBodyPart> Pricefield = multiPart.getFields("price");     
-		String price = ((FormDataBodyPart) Pricefield).getValue();
-		
-		List<FormDataBodyPart> Picfield = multiPart.getFields("pic"); 
-		InputStream stream = ((FormDataBodyPart) Picfield).getValueAs(InputStream.class);
-		 String fileName = ((FormDataBodyPart) Picfield).getName();
-		 
+		System.out.println("info:"+name+cat+desc+weight+price);
+			
 				Product p = new Product();
 				p.setProductName(name);
 				p.setProductCategory(cat);
 				p.setProductDesc(desc);
 				p.setWeight_lb(Float.parseFloat(weight));
 				p.setPrice(Float.parseFloat(price));
-				SecurityManager securityManager= new SecurityManager();
+		
+				SecurityManager securityManager= new SecurityManager();    
 				
-				String uploadedFileLocation = "images/"+fileName+".jpg";
-				writeToFile(stream, uploadedFileLocation);
-
-			    String output = "File uploaded to : " + uploadedFileLocation;
-			    System.out.println(output); 
-			    try {
-
-			        stream.close();
-			    } catch (IOException e) {
-			        e.printStackTrace();
-			    }
+				int pid= securityManager.addProduct(p);
 				
-				
-				if(securityManager.addProduct(p)==false){
+				if(pid==0){
 					servletResponse.sendRedirect("/AdminApp/AddProduct.html?result=false");
 				}
 				else{
+				
+				String uploadedFileLocation = System.getProperty("catalina.base")+"\\wtpwebapps\\AdminApp\\images\\"+pid+".jpg";
+				 
+				// save it
+				writeToFile(uploadedInputStream, uploadedFileLocation);
+		 
+				  System.out.println("File uploaded to : " + uploadedFileLocation); 
+				  
+				  String clientFileLocation = System.getProperty("catalina.base")+"\\wtpwebapps\\EcommerceApp\\images\\"+pid+".jpg";
+				  File adminFile = new File(uploadedFileLocation);
+				  File userFile = new File(clientFileLocation);
+				  FileUtils.copyFile(adminFile, userFile); 
+				 
+				  try {
+
+				    	uploadedInputStream.close();
+				    } catch (IOException e) {
+				        e.printStackTrace();
+				    }			
+				
 				servletResponse.sendRedirect("/AdminApp/Welcome.html");
 				}
 				

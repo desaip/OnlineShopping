@@ -48,10 +48,10 @@ public class SecurityManager {
 			return productsList;
 	}
 
-	public boolean addProduct(Product p) throws Exception {
+	public int addProduct(Product p) throws Exception {
 		try {
 			ProductsHandler pHandler= new ProductsHandler();
-			Boolean result = pHandler.addProduct(connection, p);
+			int result = pHandler.addProduct(connection, p);
 			return result;
 			} catch (Exception e) {
 				throw e;

@@ -28,7 +28,7 @@ $(document).ready(function () {
 
 <form id="form1" action="REST/addProduct" method="post" enctype="multipart/form-data">
 <table align="center">
-<tr><td> Image: </td> <td><input name="pic" type="file" accept="image/jpg,image/jpeg,image/gif"></td></tr>
+<tr><td> Image: </td> <td><input name="pic" type="file"></td></tr>
 <tr><td> Name: </td> <td><input name="name" type="text">*</td></tr>
 <tr><td> Category: </td> <td><select name="cat"><option value="Cake">Cake</option><option value="Flowers">Flowers</option></select>*</td></tr>
 <tr><td> Description: </td> <td><input name="desc" type="text">*</td></tr>
@@ -43,6 +43,7 @@ $(document).ready(function () {
 
 <script type="text/javascript">
  var frmvalidator = new Validator("form1");
+ frmvalidator.addValidation("pic","req", "Please upload product picture");
  frmvalidator.addValidation("name","req", "Please enter name");
  frmvalidator.addValidation("cat","req","Please enter category");
  frmvalidator.addValidation("desc","req","Please enter description");
@@ -50,6 +51,7 @@ $(document).ready(function () {
  frmvalidator.addValidation("price","req","Please enter price");
  frmvalidator.addValidation("weight","num","Please enter valid weight");
  frmvalidator.addValidation("price","num","Please enter valid price");
+ frmvalidator.EnableMsgsTogether();
 </script>
 </body>
 </html>
