@@ -3,43 +3,56 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Products</title>
+<link href="css/site.css" rel="stylesheet"/>
 <script src="http://code.jquery.com/jquery-2.0.3.js"> </script>
 <script>	  
 
 $(document).ready(function () {
+	
+	var url = window.location.href;
+	var email = url.split('=')[1];
+	
+	$("#myprof").append('<a href="MyProfile.html?email='+email+'">My Profile</a>');
+	
 	    $.ajax({
 	        type: "GET",
 	        url: "/AdminApp/REST/products",
 	        dataType: "xml",
-	        success: function(xml) {
-                            
-	            $(xml).find('product').each(function(i){
-	                var pName = $(this).find('productName').text();
-	                var pId = $(this).find('productId').text();
-	                var pDesc = $(this).find('productDesc').text();
-	                var pCat = $(this).find('productCategory').text();
-	                var price = $(this).find('price').text();
-	                var weight = $(this).find('weight_lb').text();
-	                var flprice = parseFloat(price);
-	                var tax=parseFloat(flprice*0.09);              	
-	            
-	               	                		               	                
-	                $("#products").append('<tr><td> <tr> <td colspan="2" align="center"> <img width="100" height="100" src="images/'+pId+'.jpg"></td></tr>'+
-						 '<tr> <th>Name :</th> <td>'+pName+'</td> </tr>'+
-						 '<tr> <th>Category :</th> <td>'+pCat+'</td> </tr>'+
-                		 '<tr> <th>Description :</th><td>'+pDesc+'</td></tr>'+
-                		 '<tr> <th>Price :</th><td> $'+price+'</td></tr>'+
-                		 '<tr> <th>Weight :</th><td>'+weight+' lb</td></tr>'+
-                		 '<tr> <td><button type="button" onclick="">Edit Product</button></td>'+
-                		 '<td><button type="button" onclick="">Delete Product</button></td></tr>'+
-                		 '</td></tr>'           
-	           );
-
-	            });
-	       	
-	        }   
-	    }); 
-	});
+	        success: function(xml) {              
+		         addProducts(xml);  
+		         dummyAdd =xml;
+		        }   
+		    }); 
+		});
+		
+		function addProducts(xml){
+			
+			//clears html
+			 $("#products").html('');
+			 $("#products").fadeOut();
+			   $(xml).find('product').each(function(i){
+	               var pName = $(this).find('productName').text();
+	               var pId = $(this).find('productId').text();
+	               var pDesc = $(this).find('productDesc').text();
+	               var pCat = $(this).find('productCategory').text();
+	               var price = $(this).find('price').text();
+	               var weight = $(this).find('weight_lb').text();
+	               var flprice = parseFloat(price);
+	               var tax=parseFloat(flprice*0.09);              		            
+	              	                		               	                
+	               $("#products").append('<div class=\'product\'><div class=\'prodImg\'> <img width="100" height="100" src="images/'+pId+'.jpg"></div>'+
+						 				 '<div> Name :'+pName+'</div>'+
+										 '<div> Category :'+pCat+'</div>'+
+						           		 '<div> Description : '+pDesc+'</div>'+
+						           		 '<div> Price : $<span class=\'price\'>'+price+'</div>'+
+						           		 '<div> Weight :'+weight+' lb</div>'+
+						           		 '<div> <a href="EditProduct.html?pId='+pId+'">Edit Product</a>'+
+						           		 '&nbsp; <a href="DeleteProduct.html?pId='+pId+'">Delete Product</a> </div>'+
+						           		 '</div>'          		 
+	          );
+	               $("#products").fadeIn();
+	           });	
+		}
 
 </script>
 </head>
@@ -48,20 +61,21 @@ $(document).ready(function () {
 <div id="div" align="center"><a href="Welcome.html">Products Catalog</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="AddProduct.html">Add Product</a>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="MyProfile.html">My Profile</a>
+<span id="myprof"></span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="Orders.html">All Orders</a>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="LoginForm.html">Logout</a><br>
 <h3> Products Catalog  </h3>
 </div>
-<table>
-<tr>
-<td>
-<table id="products">
-</table>
-</td>
-</tr>
-</table>
+
+	<div class="productsContainer">		
+			<div id="products" class='clearfix'>
+			
+			</div>
+</div>
+
+<div><a href="javascript: addProducts(dummyAdd);"> Next </a></div>
+
 </body>
 </html>

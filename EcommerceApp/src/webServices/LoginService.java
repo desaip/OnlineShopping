@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
@@ -30,7 +31,9 @@ public class LoginService {
  String res=validateUser(email, password);
 
  if(res.contains("Logged in")){
-	 servletResponse.sendRedirect("/EcommerceApp/Welcome.html");
+	/* HttpSession session = new HttpSession();
+	 session.setAttribute("email", email);*/
+	 servletResponse.sendRedirect("/EcommerceApp/Welcome.html?email="+email);
  }
  else{
 	 servletResponse.sendRedirect("/EcommerceApp/LoginForm.html?result=invalid");
@@ -51,11 +54,9 @@ public String validateUser(String email, String password)
 			 if(user.getPassword().equals(password))
 			 	{
 				 //System.out.println(username);
-				 return "Logged in User:"+email+"\n Products coming shortly";
-				 
+				 return "Logged in User:"+email+"\n Products coming shortly";				 
 			 	}
 			 }
- 
 	 }
 	 catch (Exception e) {
 		 e.printStackTrace();

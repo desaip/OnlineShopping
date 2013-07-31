@@ -1,5 +1,9 @@
 package pojo;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+
 public class User {
 	 	private String email;	
 	 	private String fname;

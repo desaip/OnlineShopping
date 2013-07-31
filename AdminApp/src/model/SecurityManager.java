@@ -57,4 +57,28 @@ public class SecurityManager {
 				throw e;
 				}
 		}
+
+	public Product getProduct(int pId) throws Exception{
+		Product product = new Product();
+		try {
+			ProductsHandler productsHandler= new ProductsHandler();
+			product = productsHandler.getProduct(connection, pId);
+		
+			} catch (Exception e) {
+				throw e;
+				}
+			return product;
+	}
+
+	public int updateProduct(Product p) throws Exception {
+		try 
+		{
+			ProductsHandler pHandler= new ProductsHandler();
+			int result = pHandler.updateProduct(connection, p);
+			return result;
+		} 
+		catch (Exception e) {
+				throw e;
+		}
+	}
 }

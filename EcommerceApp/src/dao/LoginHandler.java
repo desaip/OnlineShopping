@@ -14,7 +14,7 @@
 			User user = new User();
 			try 
 			{
-				 String q ="SELECT * FROM user WHERE email='"+email+"'";
+				 String q ="SELECT email,password FROM user WHERE email='"+email+"'";
 				 PreparedStatement ps = connection.prepareStatement(q);
 				 ResultSet rs = ps.executeQuery();
 				 if (rs.next()) 

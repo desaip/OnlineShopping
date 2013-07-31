@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -40,6 +41,22 @@ public class ProductsService {
 			e.printStackTrace();
 		}
 		return products;
+	}
+	
+	@Path("/{pId}")
+	@GET
+	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	public Product getProduct(@PathParam("pId") String pId) {
+		 Product product = new Product();
+		 SecurityManager securityManager= new SecurityManager();
+		 try {
+			 Integer pID = Integer.parseInt(pId);
+			product = securityManager.getProduct(pID);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return product;
 	}
 	
 }

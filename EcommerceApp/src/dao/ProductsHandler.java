@@ -37,4 +37,34 @@ public class ProductsHandler {
 		}
 	}
  
+	public Product getProduct(Connection connection, int pID) throws Exception 
+	{
+		Product p = new Product();
+		try 
+		{
+			 PreparedStatement ps = connection.prepareStatement("SELECT * FROM products WHERE productId = "+ pID);
+			 ResultSet rs = ps.executeQuery();
+			 while (rs.next()) 
+			 {				
+				 p.setProductCategory(rs.getString("productCategory"));
+				 p.setProductDesc(rs.getString("productDesc"));
+				 p.setProductId(rs.getInt("productId"));
+				 p.setProductName(rs.getString("productName"));
+				 p.setWeight_lb(rs.getFloat("weight_lb"));
+				 p.setPrice(rs.getFloat("price"));
+				 
+			 }
+			 //System.out.println(productsList);
+			 return p;
+		}
+		
+		catch (Exception e)
+		{
+			System.out.println("Handler" + e);
+			throw e;
+		}
+	}
+	
+	
+	
 }

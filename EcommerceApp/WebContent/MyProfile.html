@@ -3,7 +3,43 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>My Profile</title>
-
+<script src="http://code.jquery.com/jquery-2.0.3.js"> </script>
+<script>	  
+$(document).ready(function () {
+		
+		var url = window.location.href;
+		var email = url.split('=')[1];
+		
+	    $.ajax({
+	        type: "GET",
+	        url: "/EcommerceApp/REST/profile/"+email,
+	        dataType: "xml",
+	        success: function(xml) {  
+	        	
+	        	$(xml).find('user').each(function(i){
+	        		var fname = $(this).find('fname').text();    		            
+	                $("#fname").val(fname); 
+	                var lname = $(this).find('lname').text();    		            
+	                $("#lname").val(lname); 
+	        		var add1 = $(this).find('address1').text();    		            
+	                $("#add1").val(add1); 
+	                var add2 = $(this).find('address2').text();    		            
+	                $("#add2").val(add2); 
+	                var city = $(this).find('city').text();    		            
+	                $("#city").val(city); 
+	                var state = $(this).find('state').text();    		            
+	                $("#state").val(state); 
+	                var country = $(this).find('country').text();    		            
+	                $("#country").val(country); 
+	                var zip = $(this).find('zip').text();    		            
+	                $("#zip").val(zip); 
+	                var con_num = $(this).find('contact_num').text();    		            
+	                $("#con_num").val(con_num); 
+	        	});        		
+	        }   
+	    }); 
+	});
+</script>
 </head>
 <body>
 <div id="div" align="center"><a href="Welcome.html">Products Catalog</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -18,18 +54,18 @@
 
 <form id="form1" action="REST/updateProfile" method="post" >
 <table align="center">
-<tr><td> First Name: </td> <td><input name="fname" type="text">*</td></tr>
-<tr><td> Last Name: </td> <td><input name="lname" type="text">*</td></tr>
-<tr><td> Old Password: </td> <td><input name="password" type="password">*</td></tr>
-<tr><td> New Password: </td> <td><input name="password" type="password">*</td></tr>
-<tr><td> Confirm New Password: </td> <td><input name="confirmPassword" type="password">*</td></tr>
-<tr><td> Address (Line1): </td> <td><input name="add1" type="text">*</td></tr>
-<tr><td> Address (Line2): </td> <td><input name="add2" type="text"></td></tr>
-<tr><td> City: </td> <td><input name="city" type="text">*</td></tr>
-<tr><td> State: </td> <td><input name="statedd" type="text">*</td></tr>
-<tr><td> Zip Code/Postal Code: </td> <td><input name="zip" type="text">*</td></tr>
-<tr><td> Country: </td> <td><input name="country" type="text">*</td></tr>
-<tr><td> Contact Number: </td> <td><input name="con_num" type="text"></td></tr>
+<tr><td> First Name: </td> <td><input id="fname" name="fname" type="text">*</td></tr>
+<tr><td> Last Name: </td> <td><input id="lname" name="lname" type="text">*</td></tr>
+<tr><td> Old Password: </td> <td><input  id="password" name="password" type="password">*</td></tr>
+<tr><td> New Password: </td> <td><input  id="newpassword" name="newpassword" type="password"></td></tr>
+<tr><td> Confirm New Password: </td> <td><input  id="confimrPassword"name="confirmPassword" type="password"></td></tr>
+<tr><td> Address (Line1): </td> <td><input id="add1" name="add1" type="text">*</td></tr>
+<tr><td> Address (Line2): </td> <td><input id="add2" name="add2" type="text"></td></tr>
+<tr><td> City: </td> <td><input id="city" name="city" type="text">*</td></tr>
+<tr><td> State: </td> <td><input id="state" name="state" type="text">*</td></tr>
+<tr><td> Zip Code/Postal Code: </td> <td><input id="zip" name="zip" type="text">*</td></tr>
+<tr><td> Country: </td> <td><input id="country" name="country" type="text">*</td></tr>
+<tr><td> Contact Number: </td> <td><input id="con_num" name="con_num" type="text"></td></tr>
 <tr><td colspan="2"></td></tr>
 </table>
 <br>

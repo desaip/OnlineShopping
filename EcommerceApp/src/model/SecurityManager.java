@@ -8,6 +8,7 @@ import pojo.User;
 import dao.DbConnection;
 import dao.LoginHandler;
 import dao.ProductsHandler;
+import dao.ProfileHandler;
 
 public class SecurityManager {
 	
@@ -57,5 +58,17 @@ public class SecurityManager {
 				throw e;
 				}
 			return productsList;
+	}
+
+	public User getProfile(String email) throws Exception {
+		User user = new User();
+		try {
+			ProfileHandler profileHandler= new ProfileHandler();
+			user = profileHandler.getProfile(connection, email);
+		
+			} catch (Exception e) {
+				throw e;
+				}
+			return user;
 	}
 }

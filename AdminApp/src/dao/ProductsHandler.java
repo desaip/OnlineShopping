@@ -71,5 +71,62 @@ public class ProductsHandler {
 			}
 			return pid;
 		}
- 
-}
+	 
+		public Product getProduct(Connection connection, int pID) throws Exception 
+		{
+			Product p = new Product();
+			try 
+			{
+				 PreparedStatement ps = connection.prepareStatement("SELECT * FROM products WHERE productId = "+ pID);
+				 ResultSet rs = ps.executeQuery();
+				 while (rs.next()) 
+				 {				
+					 p.setProductCategory(rs.getString("productCategory"));
+					 p.setProductDesc(rs.getString("productDesc"));
+					 p.setProductId(rs.getInt("productId"));
+					 p.setProductName(rs.getString("productName"));
+					 p.setWeight_lb(rs.getFloat("weight_lb"));
+					 p.setPrice(rs.getFloat("price"));
+					 
+				 }
+				 //System.out.println(productsList);
+				 return p;
+			}
+			
+			catch (Exception e)
+			{
+				System.out.println("Handler" + e);
+				throw e;
+			}
+		}
+
+		public int updateProduct(Connection connection, Product p) throws Exception {
+			
+			int pid=0;
+			try 
+			{
+				int pId = p.getProductId();
+				String name = p.getProductName();
+				String cat = p.getProductCategory();
+				String desc = p.getProductDesc();
+				float weight = p.getWeight_lb();
+				float price = p.getPrice();
+								
+		                
+		         String q = "UPDATE products SET productName='"+name+"', productCategory='"+cat+"', productDesc='"+desc+"', weight_lb="+weight+", price="+price+" WHERE productId = "+pId;
+						//System.out.println(q);
+				 PreparedStatement ps = connection.prepareStatement(q);
+				 ps.executeUpdate();					 
+		            
+			}
+			catch (Exception e)
+			{
+				System.out.println("Handler" + e);
+				throw e;
+			}
+			return pid;
+			
+			
+			
+		}
+}		
