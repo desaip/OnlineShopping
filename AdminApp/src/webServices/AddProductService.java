@@ -15,8 +15,6 @@ import javax.ws.rs.core.MediaType;
 
 import com.sun.jersey.multipart.FormDataParam;
 
-import org.apache.commons.io.FileUtils;
-
 import model.SecurityManager;
 import pojo.Product;
 
@@ -100,59 +98,5 @@ public class AddProductService {
 			}
 	 
 		}
-	
-	@Path("/update")
-	 public void updateProduct(@FormDataParam("pic") InputStream uploadedInputStream, @FormDataParam("id") String id, @FormDataParam("name") String name, @FormDataParam("cat") String cat,
-             @FormDataParam("desc") String desc,@FormDataParam("weight") String weight,@FormDataParam("price") String price) throws IOException 
-      {
-		try {
-
-	Product p = new Product();
-	p.setProductId(Integer.parseInt(id));
-	p.setProductName(name);
-	p.setProductCategory(cat);
-	p.setProductDesc(desc);
-	p.setWeight_lb(Float.parseFloat(weight));
-	p.setPrice(Float.parseFloat(price));
-
-	SecurityManager securityManager= new SecurityManager();    
-	
-	int pid= securityManager.updateProduct(p);
-	
-	if(pid==0){
-		servletResponse.sendRedirect("/AdminApp/EditProduct.html?result=false");
-	}
-	else{
-	
-	String uploadedFileLocation = System.getProperty("catalina.base")+"\\wtpwebapps\\AdminApp\\images\\"+pid+".jpg";
-	 
-	// save it
-	writeToFile(uploadedInputStream, uploadedFileLocation);
-
-	  System.out.println("File uploaded to : " + uploadedFileLocation); 
-	  
-	/*  String clientFileLocation = System.getProperty("catalina.base")+"\\wtpwebapps\\EcommerceApp\\images\\"+pid+".jpg";
-	  File adminFile = new File(uploadedFileLocation);
-	  File userFile = new File(clientFileLocation);
-	  FileUtils.copyFile(adminFile, userFile); */
-	 
-	  try {
-
-	    	uploadedInputStream.close();
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }			
-	
-	servletResponse.sendRedirect("/AdminApp/Welcome.html");
-	}
-	
-} catch (Exception e) {
-// TODO Auto-generated catch block
-e.printStackTrace();
-}
-}
-	
-	
-	
 	
 }

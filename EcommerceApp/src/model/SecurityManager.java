@@ -2,6 +2,7 @@
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
 
 import pojo.Product;
 import pojo.User;
@@ -70,5 +71,29 @@ public class SecurityManager {
 				throw e;
 				}
 			return user;
+	}
+
+	public boolean updateProfile(User a) throws Exception {
+		Boolean result = false;
+		try {
+			ProfileHandler profileHandler= new ProfileHandler();
+			result = profileHandler.updateProfile(connection, a);
+		
+			} catch (Exception e) {
+				throw e;
+				}
+			return result;
+	}
+
+	public List<Product> getProductsListByCategory(String category) throws Exception {
+		ArrayList<Product> productsList = null;
+		try {
+			ProductsHandler productsHandler= new ProductsHandler();
+			productsList = productsHandler.getProductsByCategory(connection, category);
+		
+			} catch (Exception e) {
+				throw e;
+				}
+			return productsList;
 	}
 }

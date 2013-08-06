@@ -29,7 +29,7 @@ $(document).ready(function () {
 			
 			//clears html
 			 $("#products").html('');
-			 $("#products").fadeOut();
+			// $("#products").fadeOut();
 			   $(xml).find('product').each(function(i){
 	               var pName = $(this).find('productName').text();
 	               var pId = $(this).find('productId').text();
@@ -46,17 +46,16 @@ $(document).ready(function () {
 						           		 '<div> Description : '+pDesc+'</div>'+
 						           		 '<div> Price : $<span class=\'price\'>'+price+'</div>'+
 						           		 '<div> Weight :'+weight+' lb</div>'+
-						           		 '<div> <a href="EditProduct.html?pId='+pId+'">Edit Product</a>'+
-						           		 '&nbsp; <a href="DeleteProduct.html?pId='+pId+'">Delete Product</a> </div>'+
+						           		 '<div><button type="button" onclick="window.location = \'EditProduct.html?pId='+pId+'\';"> Edit </button>'+
+						           		 '&nbsp; <button type="button" onclick="window.location = \'DeleteProduct.html?pId='+pId+'\';"> Delete </button></div>'+
 						           		 '</div>'          		 
 	          );
-	               $("#products").fadeIn();
+	             //  $("#products").fadeIn();
 	           });	
 		}
 
 </script>
 </head>
-
 <body>
 <div id="div" align="center"><a href="Welcome.html">Products Catalog</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="AddProduct.html">Add Product</a>
@@ -75,7 +74,7 @@ $(document).ready(function () {
 			</div>
 </div>
 
-<div><a href="javascript: addProducts(dummyAdd);"> Next </a></div>
+<div align="center"><a href="javascript: addProducts(dummyAdd);"> Next </a></div>
 
 </body>
 </html>

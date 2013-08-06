@@ -31,7 +31,7 @@ public class LoginService {
  String res=validateUser(email, password);
 
  if(res.contains("Logged in")){
-	 servletResponse.sendRedirect("/AdminApp/Welcome.html");
+	 servletResponse.sendRedirect("/AdminApp/Welcome.html?email="+email);
  }
  else{
 	 servletResponse.sendRedirect("/AdminApp/LoginForm.html?result=invalid");

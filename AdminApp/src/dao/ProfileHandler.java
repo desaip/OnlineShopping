@@ -4,45 +4,43 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import pojo.User;
+import pojo.Admin;
 
 public class ProfileHandler {
 
-	public User getProfile(Connection connection, String email) throws Exception {
-		User user = new User();
+	public Admin getProfile(Connection connection, String email) throws Exception {
+		Admin a = new Admin();
 		try 
 		{
-			 String q ="SELECT * FROM user WHERE email='"+email+"'";
+			 String q ="SELECT * FROM admin WHERE email='"+email+"'";
 			 PreparedStatement ps = connection.prepareStatement(q);
 			 ResultSet rs = ps.executeQuery();
 			 if (rs.next()) 
 			 {
-				 user.setEmail(rs.getString("email"));
-				 user.setPassword(rs.getString("password"));
-				 user.setFname(rs.getString("fname"));
-				 user.setLname(rs.getString("lname"));
-				 user.setAddress1(rs.getString("address1"));
-				 user.setAddress2(rs.getString("address2"));
-				 user.setCity(rs.getString("city"));
-				 user.setState(rs.getString("state"));
-				 user.setZip(rs.getString("zip"));
-				 user.setContact_num(rs.getString("contact_num"));
-				 user.setCountry(rs.getString("country"));
+				 a.setEmail(rs.getString("email"));
+				 a.setPassword(rs.getString("password"));
+				 a.setFname(rs.getString("fname"));
+				 a.setLname(rs.getString("lname"));
+				 a.setAddress1(rs.getString("address1"));
+				 a.setAddress2(rs.getString("address2"));
+				 a.setCity(rs.getString("city"));
+				 a.setState(rs.getString("state"));
+				 a.setZip(rs.getString("zip"));
+				 a.setContact_num(rs.getString("contact_num"));
+				 a.setCountry(rs.getString("country"));
 				 
 			 }
 			 //System.out.println(userList);
-			 return user;
+			 return a;
 		}
 		
 		catch (Exception e)
 		{
 			System.out.println("Handler" + e);
 			throw e;
-		}	
-	}
-	
+		}	}
 
-	public Boolean updateProfile(Connection connection, User a) throws Exception {
+	public Boolean updateProfile(Connection connection, Admin a) throws Exception {
 		// TODO Auto-generated method stub
 		Boolean result = false;
 		try 
@@ -58,7 +56,7 @@ public class ProfileHandler {
 			String num = a.getContact_num();
 			String country = a.getCountry();	
 			
-			String q = "UPDATE user SET fname='"+fname+"', lname='"+lname+"', address1='"+add1+"', address2='"+add2+"', city='"+city+"', state='"+state+"',zip='"+zip+"',contact_num='"+num+"', country='"+country+"' WHERE email = '"+email+"'";
+			String q = "UPDATE admin SET fname='"+fname+"', lname='"+lname+"', address1='"+add1+"', address2='"+add2+"', city='"+city+"', state='"+state+"',zip='"+zip+"',contact_num='"+num+"', country='"+country+"' WHERE email = '"+email+"'";
 			//System.out.println(q);
 			 PreparedStatement ps = connection.prepareStatement(q);
 			 ps.executeUpdate();	
@@ -72,6 +70,6 @@ catch (Exception e)
 }
 return result;		
 
-	}
 }
 
+}

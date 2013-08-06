@@ -43,5 +43,19 @@ public class ProductsService {
 		}
 		return products;
 	}
-	
+
+	@Path("category")
+	@GET
+	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	public List<Product> getProductsByCategory(String category) {
+		List<Product> products = new ArrayList<Product>();
+		 SecurityManager securityManager= new SecurityManager();
+		 try {
+			products = securityManager.getProductsListByCategory(category);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return products;
+	}
 }

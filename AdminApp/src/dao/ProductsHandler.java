@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import pojo.Product;
@@ -27,6 +28,7 @@ public class ProductsHandler {
 				 productsList.add(p);
 			 }
 			 //System.out.println(productsList);
+			 connection.close();
 			 return productsList;
 		}
 		
@@ -48,12 +50,12 @@ public class ProductsHandler {
 				float weight = p.getWeight_lb();
 				float price = p.getPrice();
 								
-				String q1 = "SELECT COUNT(*) AS total FROM products";
+				String q1 = "SELECT MAX(productId) AS max FROM products";
 				PreparedStatement ps1 = c.prepareStatement(q1);
 				ResultSet RS = ps1.executeQuery(q1);
 				int results=0;
 		        while (RS.next()) {
-		            results= results+RS.getInt("total");
+		            results= results+RS.getInt("max");
 		            } 
 		         pid=(results+1);
 		                
@@ -61,7 +63,7 @@ public class ProductsHandler {
 						//System.out.println(q);
 						 PreparedStatement ps = c.prepareStatement(q);
 						 ps.executeUpdate();
-						 
+						 c.close();			 
 		            
 			}
 			catch (Exception e)
@@ -90,6 +92,7 @@ public class ProductsHandler {
 					 
 				 }
 				 //System.out.println(productsList);
+				 connection.close();
 				 return p;
 			}
 			
@@ -105,7 +108,7 @@ public class ProductsHandler {
 			int pid=0;
 			try 
 			{
-				int pId = p.getProductId();
+				pid = p.getProductId();
 				String name = p.getProductName();
 				String cat = p.getProductCategory();
 				String desc = p.getProductDesc();
@@ -113,7 +116,7 @@ public class ProductsHandler {
 				float price = p.getPrice();
 								
 		                
-		         String q = "UPDATE products SET productName='"+name+"', productCategory='"+cat+"', productDesc='"+desc+"', weight_lb="+weight+", price="+price+" WHERE productId = "+pId;
+		         String q = "UPDATE products SET productName='"+name+"', productCategory='"+cat+"', productDesc='"+desc+"', weight_lb="+weight+", price="+price+" WHERE productId = "+pid;
 						//System.out.println(q);
 				 PreparedStatement ps = connection.prepareStatement(q);
 				 ps.executeUpdate();					 
@@ -124,9 +127,28 @@ public class ProductsHandler {
 				System.out.println("Handler" + e);
 				throw e;
 			}
-			return pid;
+			return pid;		
 			
-			
+		}
+
+		
+		public int deleteProduct(Connection connection, int pId) throws Exception {
+			int result=0;
+			Statement st = null;
+			try 
+			{           
+		         String q = "DELETE FROM products WHERE productId = "+pId;
+						//System.out.println(q);
+				 st = connection.createStatement();
+				 result = st.executeUpdate(q);
+		          connection.close();
+			}
+			catch (Exception e)
+			{
+				System.out.println("Handler" + e);
+				throw e;
+			}
+			return result;	
 			
 		}
 }		

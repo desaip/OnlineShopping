@@ -4,11 +4,25 @@
 <meta charset="ISO-8859-1">
 <title>My Profile</title>
 <script src="http://code.jquery.com/jquery-2.0.3.js"> </script>
+<script type="text/javascript">
+ var RecaptchaOptions = {
+    theme : 'clean'
+ };
+ </script>
 <script>	  
 $(document).ready(function () {
 		
-		var url = window.location.href;
-		var email = url.split('=')[1];
+	var url = window.location.href;
+	var email = url.split('email=')[1].split("&")[0];
+	$("#email").val(email);
+	
+	var result = url.split('&result=')[1];
+	if(result == "true"){
+		$("#message").html("<h4> Profile updated successfully </h4>");
+	}
+	else if (result == "false"){
+		$("#message").html("<h4> Error in updating profile. Try again </h4>");
+	}	
 		
 	    $.ajax({
 	        type: "GET",
@@ -53,12 +67,11 @@ $(document).ready(function () {
 
 
 <form id="form1" action="REST/updateProfile" method="post" >
+<div id="message" style="color:red; text-align:center"></div>
 <table align="center">
+<tr><td> Email Address: </td> <td><input id="email" name="email" type="text" readonly>*</td></tr>
 <tr><td> First Name: </td> <td><input id="fname" name="fname" type="text">*</td></tr>
 <tr><td> Last Name: </td> <td><input id="lname" name="lname" type="text">*</td></tr>
-<tr><td> Old Password: </td> <td><input  id="password" name="password" type="password">*</td></tr>
-<tr><td> New Password: </td> <td><input  id="newpassword" name="newpassword" type="password"></td></tr>
-<tr><td> Confirm New Password: </td> <td><input  id="confimrPassword"name="confirmPassword" type="password"></td></tr>
 <tr><td> Address (Line1): </td> <td><input id="add1" name="add1" type="text">*</td></tr>
 <tr><td> Address (Line2): </td> <td><input id="add2" name="add2" type="text"></td></tr>
 <tr><td> City: </td> <td><input id="city" name="city" type="text">*</td></tr>
@@ -87,7 +100,20 @@ $(document).ready(function () {
 
 </form>
 
+<script type="text/javascript">
+ var frmvalidator = new Validator("form1");
+ frmvalidator.addValidation("fname","req","Please enter your First Name");
+ frmvalidator.addValidation("lname","req","Please enter your last name");
+ frmvalidator.addValidation("email","req","Please enter valid email id");
+ frmvalidator.addValidation("email","email","Please enter valid email id");
+ frmvalidator.addValidation("add1","req","Please enter your address line1");
+ frmvalidator.addValidation("city","req","Please enter your city");
+ frmvalidator.addValidation("state","req","Please enter your state");
+ frmvalidator.addValidation("country","req","Please enter your country");
+ frmvalidator.addValidation("zip","req","Please enter your zip code");
+ frmvalidator.EnableMsgsTogether();
 
+</script>
 
 </body>
 </html>

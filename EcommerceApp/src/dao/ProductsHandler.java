@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import pojo.Product;
 
 public class ProductsHandler {
+	
 	public ArrayList<Product> getAllProducts(Connection connection) throws Exception 
 	{
 		ArrayList<Product> productsList = new ArrayList<Product>();
@@ -64,7 +65,35 @@ public class ProductsHandler {
 			throw e;
 		}
 	}
+
 	
+	public ArrayList<Product> getProductsByCategory(Connection connection, String category) throws Exception {
 	
+		ArrayList<Product> productsList = new ArrayList<Product>();
+		try 
+		{
+			 PreparedStatement ps = connection.prepareStatement("SELECT * FROM products WHERE productCategory =" + category);
+			 ResultSet rs = ps.executeQuery();
+			 while (rs.next()) 
+			 {
+				 Product p = new Product();
+				 
+				 p.setProductId(rs.getInt("productId"));
+				 p.setProductName(rs.getString("productName"));
+				 p.setProductDesc(rs.getString("productDesc"));
+				 p.setWeight_lb(rs.getFloat("weight_lb"));
+				 p.setPrice(rs.getFloat("price"));
+				 productsList.add(p);
+			 }
+			 //System.out.println(productsList);
+			 return productsList;
+		}
+		
+		catch (Exception e)
+		{
+			System.out.println("Handler" + e);
+			throw e;
+		}
+	}
 	
 }

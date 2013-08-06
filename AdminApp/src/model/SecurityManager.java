@@ -5,9 +5,11 @@ import java.util.ArrayList;
 
 import pojo.Product;
 import pojo.Admin;
+
 import dao.DbConnection;
 import dao.LoginHandler;
 import dao.ProductsHandler;
+import dao.ProfileHandler;
 
 public class SecurityManager {
 	
@@ -80,5 +82,42 @@ public class SecurityManager {
 		catch (Exception e) {
 				throw e;
 		}
+	}
+
+	public Admin getProfile(String email) throws Exception {
+		Admin user = new Admin();
+		try {
+			ProfileHandler profileHandler= new ProfileHandler();
+			user = profileHandler.getProfile(connection, email);
+		
+			} catch (Exception e) {
+				throw e;
+				}
+			return user;
+		}
+
+	public int deleteProduct(int pId) throws Exception {
+		// TODO Auto-generated method stub
+		int result=0;
+		try{
+			ProductsHandler p = new ProductsHandler();
+			result = p.deleteProduct(connection, pId);
+			
+		}catch (Exception e) {
+			throw e;
+			}
+		return result;
+	}
+
+	public boolean updateProfile(Admin a) throws Exception{
+		Boolean result = false;
+		try {
+			ProfileHandler profileHandler= new ProfileHandler();
+			result = profileHandler.updateProfile(connection, a);
+		
+			} catch (Exception e) {
+				throw e;
+				}
+			return result;
 	}
 }
