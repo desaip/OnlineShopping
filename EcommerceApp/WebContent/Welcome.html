@@ -4,11 +4,10 @@
 <meta charset="ISO-8859-1">
 <title>Products</title>
 <link href="css/site.css" rel="stylesheet"/>
-<script src="http://code.jquery.com/jquery-2.0.3.js"> </script>
+<script src="http://code.jquery.com/jquery-1.9.1.js"> </script>
+
 <script>	  
 
-var customersTotal = 0;
-var customersItems = 0;
 $(document).ready(function () {
 	
 		var url = window.location.href;
@@ -27,23 +26,6 @@ $(document).ready(function () {
 	        }   
 	    }); 
 	});
-	
-	$("#category").change(function() {
-		 var str = "";
-		 $("#category option:selected").each(function() {
-		 str += $(this).text();
-		 var cat = $(this).val();
-		 $.ajax({
-		        type: "GET",
-		        url: "/EcommerceApp/REST/products/"+cat,
-		        dataType: "xml",
-		        success: function(xml) {              
-		         addProducts(xml);  
-		         dummyAdd =xml;
-		        }   
-		    }); 
-		 });
-		 })
 		 
 	function addToCart(e){
 		customersTotal += parseFloat(jQuery(e).parent().parent().find(".price").eq(0).html());
@@ -102,6 +84,7 @@ function addCart(pId,pName,pCat,price,weight){
 
 <body>
 
+
 <div id="div" align="center"><a href="Welcome.html">Products Catalog</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <span id="myprof"></span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -109,7 +92,6 @@ function addCart(pId,pName,pCat,price,weight){
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="LoginForm.html">Logout</a><br>
 <h3> Products Catalog  </h3>
-<select id="category"><option value="All" selected="selected">All</option><option value="Cake">Cake</option> <option value="Flowers">Flowers</option><option value="Accessories">Accessories</option></select>
 </div>
 
 <br>

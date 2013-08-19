@@ -23,8 +23,8 @@ public class ProductsHandler {
 				 p.setProductDesc(rs.getString("productDesc"));
 				 p.setProductId(rs.getInt("productId"));
 				 p.setProductName(rs.getString("productName"));
-				 p.setWeight_lb(rs.getFloat("weight_lb"));
-				 p.setPrice(rs.getFloat("price"));
+				 p.setWeight_lb(rs.getBigDecimal("weight_lb"));
+				 p.setPrice(rs.getBigDecimal("price"));
 				 productsList.add(p);
 			 }
 			 //System.out.println(productsList);
@@ -51,8 +51,8 @@ public class ProductsHandler {
 				 p.setProductDesc(rs.getString("productDesc"));
 				 p.setProductId(rs.getInt("productId"));
 				 p.setProductName(rs.getString("productName"));
-				 p.setWeight_lb(rs.getFloat("weight_lb"));
-				 p.setPrice(rs.getFloat("price"));
+				 p.setWeight_lb(rs.getBigDecimal("weight_lb"));
+				 p.setPrice(rs.getBigDecimal("price"));
 				 
 			 }
 			 //System.out.println(productsList);
@@ -81,8 +81,8 @@ public class ProductsHandler {
 				 p.setProductId(rs.getInt("productId"));
 				 p.setProductName(rs.getString("productName"));
 				 p.setProductDesc(rs.getString("productDesc"));
-				 p.setWeight_lb(rs.getFloat("weight_lb"));
-				 p.setPrice(rs.getFloat("price"));
+				 p.setWeight_lb(rs.getBigDecimal("weight_lb"));
+				 p.setPrice(rs.getBigDecimal("price"));
 				 productsList.add(p);
 			 }
 			 //System.out.println(productsList);

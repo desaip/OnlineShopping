@@ -1,5 +1,7 @@
 package pojo;
 
+import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -9,9 +11,10 @@ public class Product {
 	private String productName;
     private String productDesc;
     private String productCategory;
-    private float weight_lb;
-	private float price;
+    private BigDecimal weight_lb;
+	private BigDecimal price;
     
+
     public int getProductId() {
 		return productId;
 	}
@@ -44,20 +47,20 @@ public class Product {
 		this.productCategory = productCategory;
 	}
 
-	public float getPrice() {
+	public BigDecimal getPrice() {
 			return price;
 	}
 
-	public void setPrice(float price) {
-		this.price = price;
+	public void setPrice(BigDecimal bigDecimal) {
+		this.price = bigDecimal;
 	}
 
-	public float getWeight_lb() {
+	public BigDecimal getWeight_lb() {
 		return weight_lb;
 	}
 
-	public void setWeight_lb(float weight_lb) {
-		this.weight_lb = weight_lb;
+	public void setWeight_lb(BigDecimal bigDecimal) {
+		this.weight_lb = bigDecimal;
 	}
    
 }
