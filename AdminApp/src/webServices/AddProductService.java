@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
@@ -27,17 +28,17 @@ public class AddProductService {
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	
 	 public void addProduct(@FormDataParam("pic") InputStream uploadedInputStream, @FormDataParam("name") String name, @FormDataParam("cat") String cat,
-			                @FormDataParam("desc") String desc,@FormDataParam("weight") String weight,@FormDataParam("price") String price) throws IOException 
+			                @FormDataParam("desc") String desc,@FormDataParam("weight") BigDecimal weight,@FormDataParam("price") BigDecimal price) throws IOException 
 	{
 		try {
-		System.out.println("info:"+name+cat+desc+weight+price);
+		//System.out.println("info:"+name+cat+desc+weight+price);
 			
 				Product p = new Product();
 				p.setProductName(name);
 				p.setProductCategory(cat);
 				p.setProductDesc(desc);
-				p.setWeight_lb(Float.parseFloat(weight));
-				p.setPrice(Float.parseFloat(price));
+				p.setWeight_lb(weight);
+				p.setPrice(price);
 		
 				SecurityManager securityManager= new SecurityManager();    
 				
