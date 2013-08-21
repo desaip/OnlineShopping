@@ -96,4 +96,17 @@ public class SecurityManager {
 				}
 			return productsList;
 	}
+
+	public Boolean updatePassword(String email, String password) throws Exception {
+		// TODO Auto-generated method stub
+		Boolean result = false;
+		try {
+			ProfileHandler profileHandler= new ProfileHandler();
+			result = profileHandler.updatePassword(connection, email, password);
+		
+			} catch (Exception e) {
+				throw e;
+				}
+			return result;
+	}
 }

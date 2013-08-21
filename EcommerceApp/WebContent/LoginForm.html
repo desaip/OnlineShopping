@@ -10,7 +10,9 @@ $(document).ready(function () {
 	var field = 'result';
 	var url = window.location.href;
 	if(url.indexOf('?' + field + '=') != -1)
-		$("#msg").append('<p>Invalid email and/or password. Please Login Again </p>');
+		$("#msg").append('<p> Invalid email and/or password. Please Login Again </p>');
+	if(url.indexOf('?reset=true') != -1)
+		$("#msg").append('<p> A mail with temporary password has been sent. Please check your mail and login </p>');
 });
 </script>
 </head>
@@ -113,7 +115,7 @@ window.fbAsyncInit = function() {
 	
 	<div style="width: 50%; float:right; align:center">
  
-	<h4> OR Login with ECommerce App </h4>
+	<h4> OR Login with Kukus Corner </h4>
 
 	<div id="msg" style="color:red; align:center"></div>
 	
